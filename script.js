@@ -44,3 +44,27 @@ Two Common Value Types: Strings & Numbers
 
   var message = 'She\'s a great person!';
   #backslash character serves as an escape charater, quote mark is ignored
+
+  prompt('What is your name?');
+  var visitorName = prompt('What is your name?');
+  alert(visitorName);
+  console.log(visitorName);
+
+  var visitor = prompt('What is your name?');
+  var message = 'Hello' + " " + visitor;
+  #concatenation, combining strings or variables
+  document.write(message);
+
+  var message = "Hello" + visitor + " .Welcome to Treehouse. ";
+  message = message + "We are so glad that you came by to visit, ";
+  message += "please come again, when you want to learn some more.";
+  #same updates the variable
+
+/********************************
+Working With Strings & Variables
+*********************************/
+  var passphrase = "Open Sesame";
+  console.log(passphrase.length);
+  #objects can be a string, the document, the browsers console, variable
+  #objects have properties such as length of a string
+  #objects have mehtods, which are actions the object can perform.
