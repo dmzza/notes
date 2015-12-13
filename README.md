@@ -12,6 +12,8 @@ $ export PS1=" 🙃 $ "
 Install Github for Mac
 Install Xcode and xcode command line tools
   Install Xcode extensions: $ xcode-select --install
+  #push local changes to Heroku after comitting to Git
+  $ git push heroku master
 
 Homebrew found http://brew.sh
   installation: $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew
@@ -36,23 +38,18 @@ Rails
 
   check installation: $ brew doctor
 
-MySQL
-  $ brew install mysql
-  $ brew install cmake
-  $ brew info mysql
-  $ mysql -v
-
-  #To have launchd start mysql at login:
-    $ ln -sfv /usr/local/opt/mysql/*plist ~/Library/LaunchAgents
-
-  #Then to load mysql now:
-    $ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-
-  $ mysql.server start
 
   $ brew update
   $ bundle install
 
 Postgres
+  $ sudo ~/.bash_profile
+  $ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+  #set /bin directory to your PATH for every terminal session
+
+  $ heroku pg:psql
+
+
+  #if not, try
   $ sudo su
   $ env ARCHFLAGS="-arch x86_64" gem install pg -v 0.18.4 -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.4/bin/pg_config
