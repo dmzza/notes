@@ -67,4 +67,29 @@ Working With Strings & Variables
   console.log(passphrase.length);
   #objects can be a string, the document, the browsers console, variable
   #objects have properties such as length of a string
-  #objects have mehtods, which are actions the object can perform.
+  #objects have mehtods, which are actions the object can
+    #perform. .write  or .toUpperCase()
+
+  var stringToShout = prompt('What should I shout?');
+  var shout = stringToShout.toUpperCase();
+  shout += '!!!';
+  alert(shout);
+
+  var adjective = prompt('Please type an adjective');
+  var verb = prompt('Please type a verb');
+  var noun = prompt('Please type a noun');
+  alert('All done. Ready for the message?');
+  var story = '<h2>There once was a ' + adjective;
+  story += ' programmer who wanted to use JavaScript to ';
+  story += verb + ' the ' + noun + '.</h2>';
+  document.write(story);
+  #adlib story program
+
+/********************************
+Numbers
+*********************************/
+Integers        |       Floating Point Numbers      |       Scientific Notation
+        5                         3.14                            9e-6
+        0                       -9.8888                           9e+6
+      -100                       0.0009
+      9999
