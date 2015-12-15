@@ -1,10 +1,13 @@
+# new rails app with PostgreSQL db
+'$ rails new appname -d postgresql -s Puma'
+
 # gemfile
 ```
 ruby '2.2.3'
-# Use Postgres as the database for Active Record
-gem 'pg'
 # Use Puma to run highly concurrent HTTP 1.1 server for Ruby/Rack applications
 gem 'puma', '~> 2.15.3'
+# Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.
+gem 'rails_12factor'
 ```
 
 # create `config/puma.rb`
@@ -24,36 +27,6 @@ on_worker_boot do
   # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
   ActiveRecord::Base.establish_connection
 end
-```
-
-# config/database.yml
-```
-# Postgres version 9.x
-# sets the /bin directory to your PATH for every terminal session
-# $ sudo ~/.bash_profile
-# $ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-#   Ensure the Postgres gem is defined in your Gemfile
-#   gem 'pg'
-
-default: &default
-  adapter: postgresql
-  pool: 5
-  timeout: 5000
-
-development:
-  <<: *default
-  database: db/development
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: db/test
-
-production:
-  <<: *default
-  database: db/production
 ```
 
 # create `/Procfile`
