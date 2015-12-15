@@ -51,7 +51,3 @@ sets /bin directory to your PATH for every terminal session
 if not, try
 `$ sudo su`
 `$ env ARCHFLAGS="-arch x86_64" gem install pg -v 0.18.4 -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.4/bin/pg_config`
-
-# `.gitignore`
-`/.bundle`
-`/vendor/bundle`
