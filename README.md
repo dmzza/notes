@@ -1,10 +1,14 @@
 # terminal preferences
 `$ nano .bash_profile`
 ```
-$ export PS1=" 🙃 $ "
-  export CLICOLOR=1
-  export LSCOLORS=ExFxBxDxCxegedabagacad
-  alias ls='ls -GFh'
+export PS1=" 🙃  $ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
   ```
   - Control+O, enter, and then Control+X
   - Two lines enable command line colors, and define colors for the ‘ls’ command
