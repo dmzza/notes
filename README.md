@@ -6,9 +6,9 @@ $ export PS1=" 🙃 $ "
   export LSCOLORS=ExFxBxDxCxegedabagacad
   alias ls='ls -GFh'
   ```
-1. Control+O, enter, and then Control+X
-2. Two lines enable command line colors, and define colors for the ‘ls’ command
-3. Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
+  - Control+O, enter, and then Control+X
+  - Two lines enable command line colors, and define colors for the ‘ls’ command
+  - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
 
 # git
 1. Install Github for Mac
@@ -40,14 +40,3 @@ $ export PS1=" 🙃 $ "
 1. `$ brew doctor`
 2. `$ brew update`
 3. `$ bundle install`
-
-# postgres
-`$ sudo ~/.bash_profile`
-`$ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin`
-sets /bin directory to your PATH for every terminal session
-
-`$ heroku pg:psql`
-
-if not, try
-`$ sudo su`
-`$ env ARCHFLAGS="-arch x86_64" gem install pg -v 0.18.4 -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.4/bin/pg_config`
