@@ -15,10 +15,10 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
   - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
 
 # git
-1. Install Github for Mac
-2. Install Xcode and xcode command line tools
-3. Install Xcode extensions: `$ xcode-select --install`
-4. push local changes to Heroku after comitting to Git `$ git push heroku master`
+  - Install Github for Mac
+  - Install Xcode and xcode command line tools
+  - Install Xcode extensions: `$ xcode-select --install`
+  - push local changes to Heroku after comitting to Git `$ git push heroku master`
 
 # homebrew found
 1. http://brew.sh
@@ -37,10 +37,10 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 5. Disables the documentation step: `$ echo "gem: --no-document" >> ~/.gemrc`
 
 # rails
-1. installation: `$ gem install rails --no-ri --no-rdoc`
-2. `$ rails --version`
+  - installation: `$ gem install rails --no-ri --no-rdoc`
+  - `$ rails --version`
 
 # check installation:
-1. `$ brew doctor`
-2. `$ brew update`
-3. `$ bundle install`
+  - `$ brew doctor`
+  - `$ brew update`
+  - `$ bundle install`

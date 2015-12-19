@@ -1,5 +1,5 @@
 # new rails app with PostgreSQL db
-'$ rails new appname -d postgresql'
+`$ rails new appname -d postgresql`
 
 # gemfile
 ```
@@ -33,3 +33,6 @@ end
 
 # create `/Procfile`
 `web: bundle exec puma -C config/puma.rb`
+# gitinore
+`/.bundle`
+`/vendor/bundle`
