@@ -8,6 +8,8 @@ ruby '2.2.3'
 gem 'puma', '~> 2.15.3'
 # Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.
 gem 'rails_12factor'
+# Use Devise as authentication database
+gem 'devise'
 ```
 
 # create `config/puma.rb`
