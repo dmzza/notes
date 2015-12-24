@@ -8,8 +8,12 @@ ruby '2.2.3'
 gem 'puma', '~> 2.15.3'
 # Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.
 gem 'rails_12factor'
-# Use Devise as authentication database
+# Devise is a flexible authentication solution for Rails based on Warden
 gem 'devise'
+# CanCan is an authorization library for Ruby on Rails
+gem 'cancancan', '~> 1.10'
+# Rails forms made easy
+gem 'simple_form'
 ```
 
 # create `config/puma.rb`
