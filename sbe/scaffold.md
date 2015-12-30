@@ -14,6 +14,12 @@ rails g model CompanyStates company:belongs_to state:belongs_to
 
 rails g model CompanyIndustries company:belongs_to industry:belongs_to
 
+rails g scaffold client name:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10}
+
+rails g scaffold rfp client:belongs_to project_name:string contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text
+
+rails g scaffold bid yes_will_bid:boolean no_will_not_bid:boolean please_contact_later:boolean wrong_type_of_work:boolean belongs_to:company belongs_to:certifications
+
 class Certification
   has_many :company_certifications
 class CompanyCertification
@@ -40,3 +46,10 @@ class State
 class User
   belongs_to: state
   belongs_to: company
+
+
+  RFP has_many bids
+  bid belongs_to rfp
+  RFP belongs_to client
+  bid belongs_to company
+  bid belongs_to user
