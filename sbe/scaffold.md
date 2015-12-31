@@ -8,7 +8,7 @@ rails g scaffold Company name:string{50} address_1:string{100} address_2:string{
 
 rails g scaffold User company:belongs_to first_name:string{30} last_name:string{30} title:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10} phone_number:integer{8} extension:string{15} fax_number:integer{8} gender:string ethnicity:string veteran_status:string
 
-rails g model CompanyCertifications company:belongs_to certification:belongs_to
+rails g model CertificationsCompanies company:belongs_to certification:belongs_to
 
 rails g model CompanyStates company:belongs_to state:belongs_to
 
@@ -16,9 +16,9 @@ rails g model CompanyIndustries company:belongs_to industry:belongs_to
 
 rails g scaffold client name:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10}
 
-rails g scaffold opportunity client:belongs_to project_name:string contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text
+rails g scaffold opportunity client:belongs_to project_name:string contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text instructions:text
 
-rails g scaffold bid is_interested:boolean wants_reminder:boolean belongs_to:company has_many:certifications
+rails g scaffold bid opportunity:belongs_to is_interested:boolean wants_reminder:boolean company:belongs_to certification_number:string area_of_expertise:string
 
 class Certification
   has_many :company_certifications
@@ -49,7 +49,7 @@ class User
 
 
   opportunity has_many bids
-  bid belongs_to opportunity
   opportunity belongs_to client
   bid belongs_to company
   bid belongs_to user
+  bid belongs_to opportunity
