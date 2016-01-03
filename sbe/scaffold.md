@@ -18,7 +18,7 @@ rails g scaffold client name:string{50} address_1:string{100} address_2:string{5
 
 rails g scaffold opportunity client:belongs_to project_name:string contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text instructions:text
 
-rails g scaffold bid opportunity:belongs_to is_interested:boolean wants_reminder:boolean company:belongs_to certification_number:string area_of_expertise:string
+rails g scaffold bid opportunity:belongs_to is_interested:boolean wants_reminder:boolean company:belongs_to area_of_expertise:string
 
 class Certification
   has_many :company_certifications
