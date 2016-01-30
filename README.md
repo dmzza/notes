@@ -1,46 +1,50 @@
-# terminal preferences
-`$ nano .bash_profile`
+# new rails app with PostgreSQL db
+`$ rails new appname -d postgresql`
+
+disabled automatic stylesheet creation
+Add these lines to `application.rb`
 ```
-export PS1=" 🙃  $ "
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
-alias ls='ls -GFh'
+config.generators.stylesheets = false
+config.generators.javascripts = false
+```
+`$ rails generate controller controller_name --no-assets`
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# gemfile
+```
+ruby '2.2.3'
+# Use Puma to run highly concurrent HTTP 1.1 server for Ruby/Rack applications
+gem 'puma', '~> 2.15.3'
+# Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.
+gem 'rails_12factor'
+# Devise is a flexible authentication solution for Rails based on Warden
+gem 'devise'
+# CanCan is an authorization library for Ruby on Rails
+gem 'cancancan', '~> 1.10'
+# Rails forms made easy
+gem 'simple_form'
+```
 
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-  ```
-  - Control+O, enter, and then Control+X
-  - Two lines enable command line colors, and define colors for the ‘ls’ command
-  - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
+# create `config/puma.rb`
+```
+workers Integer(ENV['WEB_CONCURRENCY'] || 4)
+threads_count = Integer(ENV['MAX_THREADS'] || 5)
+threads threads_count, threads_count
 
-# git
-  - Install Github for Mac
-  - Install Xcode and xcode command line tools
-  - Install Xcode extensions: `$ xcode-select --install`
-  - push local changes to Heroku after comitting to Git `$ git push heroku master`
+preload_app!
 
-# homebrew found
-1. http://brew.sh
-2. installation: `$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-3. configuration: `$ brew install wget`
+rackup      DefaultRackup
+port        ENV['PORT']     || 3000
+environment ENV['RACK_ENV'] || 'development'
 
-# ruby
-1. found https://rvm.io/rvm/install
-2. RVM stable with Ruby: `$ \curl -sSL https://get.rvm.io | bash -s stable --ruby`
-3. Updating RVM & Ruby:
-  - `$ rvm get stable --autolibs=enable`
-  - `$ rvm install ruby`
-  - `$ rvm --default use ruby-2.2.3`
-  - `$ rvm list`
-4. Ruby Gems (gem manager in Ruby): `$ gem update --system`
-5. Disables the documentation step: `$ echo "gem: --no-document" >> ~/.gemrc`
+on_worker_boot do
+  # Worker specific setup for Rails 4.1+
+  # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
+  ActiveRecord::Base.establish_connection
+end
+```
 
-# rails
-  - installation: `$ gem install rails --no-ri --no-rdoc`
-  - `$ rails --version`
-
-# check installation:
-  - `$ brew doctor`
-  - `$ brew update`
-  - `$ bundle install`
+# create `/Procfile`
+`web: bundle exec puma -C config/puma.rb`
+# gitinore
+`/.bundle`
+`/vendor/bundle`

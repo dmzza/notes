@@ -14,14 +14,3 @@ end
 <%= simple_form_for @snack do |f| %>
 <%= f.collection_select :ice_cream, Snack::FLAVORS, :value, :label %>
 <% end %>
-
-List agencies by whom your company is certified:
-CONSTRUCTION RELATED ONLY:
-veteran_status
-gender
-ethnicity
-business_structure
-number_of_employees
-last_year_sales
-industry
-served_states
