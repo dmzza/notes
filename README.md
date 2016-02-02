@@ -11,15 +11,26 @@ config.generators.javascripts = false
 
 # gemfile
 ```
-ruby '2.3.0'
+# ruby '2.2.3'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '>= 4.2.5'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18.4'
 # Use Puma to run highly concurrent HTTP 1.1 server for Ruby/Rack applications
-gem 'puma', '~> 2.15.3'
+gem 'puma', '>= 2.15.3'
+# Use SCSS for stylesheets
+gem 'sass-rails', '>= 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '>= 4.1.0'
+
 # Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.
 gem 'rails_12factor'
 # Devise is a flexible authentication solution for Rails based on Warden
 gem 'devise'
 # CanCan is an authorization library for Ruby on Rails
-gem 'cancancan', '~> 1.10'
+gem 'cancancan', '>= 1.13.1'
 # Rails forms made easy
 gem 'simple_form'
 ```
