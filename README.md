@@ -11,7 +11,7 @@ config.generators.javascripts = false
 
 # gemfile
 ```
-ruby '2.2.3'
+ruby '2.3.0'
 # Use Puma to run highly concurrent HTTP 1.1 server for Ruby/Rack applications
 gem 'puma', '~> 2.15.3'
 # Replaces the need for plugins, and ensures that Rails 4 is optimally configured for executing on Heroku.

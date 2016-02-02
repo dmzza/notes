@@ -8,6 +8,8 @@ alias ls='ls -GFh'
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+source ~/.rvm/scripts/rvm
+
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
   ```
   - Control+O, enter, and then Control+X
@@ -28,12 +30,11 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 # ruby
 1. found https://rvm.io/rvm/install
 2. RVM stable with Ruby: `$ \curl -sSL https://get.rvm.io | bash -s stable --ruby`
+3. Install the most recent RubyGems that RVM knows about`rvm rubygems current`
 3. Updating RVM & Ruby:
   - `$ rvm get stable --autolibs=enable`
   - `$ rvm install ruby`
-  - `$ rvm --default use ruby-2.2.3`
   - `$ rvm list`
-4. Ruby Gems (gem manager in Ruby): `$ gem update --system`
 5. Disables the documentation step: `$ echo "gem: --no-document" >> ~/.gemrc`
 
 # rails
