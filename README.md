@@ -1,4 +1,6 @@
-#### new rails app with PostgreSQL db
+## Rails 4 App creation, configuration, and description of gem use
+
+#### Create new rails app with PostgreSQL db
 `rails new appname -d postgresql`
 
 Disabled automatic stylesheet creation by adding these lines to `application.rb`
@@ -6,7 +8,7 @@ Disabled automatic stylesheet creation by adding these lines to `application.rb`
 config.generators.stylesheets = false
 config.generators.javascripts = false
 ```
-`rails generate controller controller_name --no-assets`
+`rails g controller controller_name --no-assets`
 
 #### Gemfile
 Ruby 2.2.3
@@ -83,7 +85,7 @@ Loads environment variables from .env
 ```
 gem 'dotenv-rails', '>= 2.1.0'
 ```
-
+------------
 #### Config Files
 `app/controllers/application_controller.rb`
 ```ruby
