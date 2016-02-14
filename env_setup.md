@@ -17,7 +17,16 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
   - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
 
 # git
-  - Install Github for Mac
+  - Install Github for Mac  
+    `git config --global -l`
+    ```
+    filter.lfs.required=true
+    filter.lfs.clean=git-lfs clean %f
+    filter.lfs.smudge=git-lfs smudge %f
+    user.name=David
+    user.email=litlmoz@gmail.com
+    core.editor=atom --wait
+    ```
   - Install Xcode and xcode command line tools
   - Install Xcode extensions: `$ xcode-select --install`
   - push local changes to Heroku after comitting to Git `$ git push heroku master`
