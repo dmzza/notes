@@ -10,11 +10,12 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 source ~/.rvm/scripts/rvm
 
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-  ```
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
+```
   - Control+O, enter, and then Control+X
   - Two lines enable command line colors, and define colors for the ‘ls’ command
-  - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings.
+  - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings
+  - Uninstall and reinstall pg gem, after updating Postgres
 
 # git
   - Install Github for Mac  
