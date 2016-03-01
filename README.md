@@ -1,14 +1,44 @@
 ## Rails 4 App creation, configuration, and description of gem use
 
 #### Create new rails app with PostgreSQL db
-`rails new appname -d postgresql`
+`rails new AppNAME -d postgresql`
 
 Disabled automatic stylesheet creation by adding these lines to `application.rb`
 ```ruby
 config.generators.stylesheets = false
 config.generators.javascripts = false
 ```
-`rails g controller controller_name --no-assets`
+`$ rails g controller controller_name --no-assets`
+
+##### Heroku
+Create App
+```
+$ heroku create Appname
+```
+Clone existing app
+```
+$ heroku git:clone -a myapp
+```
+Push local changes
+```
+$ git push heroku master
+```
+Adjusts the number of workers the main Puma process will fork, depending on dynos
+```
+$ heroku config:set SENSIBLE_DEFAULTS=enabled
+```
+Logs from Postgres
+```
+$ heroku logs -p postgres -t
+```
+Performs a number of health and diagnostic checks that help analyze and optimize the performance of a database
+```
+$ heroku pg:diagnose --app NAME
+```
+Establish a PostgreSQL interactive terminal(psql) session with remote db
+```
+$ heroku pg:psql
+```
 
 #### Gemfile
 Ruby 2.2.3
@@ -20,16 +50,37 @@ gem 'rails', '>= 4.2.5'
 #### Testing
 Testing framework for Rails 4.x
 ```
-'gem 'rspec-rails', '>= 3.0', groups: [:development, :test]'
+'gem 'rspec-rails', '>= 3.4', groups: [:development, :test]'
 ```
 Initialize the spec/ directory (where specs will reside) with:
 ```
-rails generate rspec:install
+$ rails g rspec:install
 ```
 In Rails 4, you may want to create a binstub for the rspec command so it can be run via bin/rspec:
 ```
-bundle binstubs rspec-core
+$ bundle binstubs rspec-core
 ```
+
+#### Mailer
+Declare job classes that can be run by queueing backends
+```
+gem 'activejob', '>= 4.2.5.1'
+```
+Sidekiq uses Redis to store all of its job and operational data
+```
+$ brew install redis
+$ ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+$ redis-server
+```
+Asynchronous queueing system
+```
+gem 'sidekiq', '>= 3.2.5'
+```
+Sidekiq Web portal powered by Sinatra
+```
+gem 'sinatra', '>= 1.4.7'
+```
+Reset dashboard statistics `Sidekiq::Stats.new.reset`
 #### Server
 Use Puma to run highly concurrent HTTP 1.1 server for Ruby/Rack applications
 ```
@@ -46,11 +97,11 @@ gem 'devise', '>= 3.5.6'
 ```
 Run initializer which describes ALL of Devise's configuration options
 ```
-rails generate devise:install
+$ rails g devise:install
 ```
 Add Devise to any of your models using the generator
 ```
-rails generate devise MODEL
+$ rails g devise MODEL
 ```
 CanCanCan is an authorization library for Ruby on Rails
 ```
@@ -58,7 +109,7 @@ gem 'cancancan', '>= 1.10'
 ```
 Run generator for creating Ability class
 ```
-rails g cancan:ability
+$ rails g cancan:ability
 ```
 Allows mocking and stubbing of methods on real (non-mock) classes
 ```
@@ -70,7 +121,7 @@ gem 'simple_form
 ```
 Run the generator for SimpleForm Bootstrap integration:
 ```
-rails generate simple_form:install --bootstrap
+$ rails g simple_form:install --bootstrap
 ```
 This gem can help you work with Enum feather, I18n and simple_form
 ```
@@ -134,7 +185,7 @@ on_worker_boot do
 end
 ```
 
-`config/environments/Development.rb`
+`config/environments/development.rb`
 ```ruby
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -151,7 +202,7 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Mailer enabled for Devise.
+  # Default host used by Mailer
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   config.action_mailer.perform_deliveries = true
@@ -260,6 +311,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+```
+
+`config/environments/test.rb`
+```ruby
+# Default host used by Mailer
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 ```
 
 `config/database.yml`
