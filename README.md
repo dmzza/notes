@@ -160,7 +160,7 @@ class ApplicationController < ActionController::Base
   check_authorization unless: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to authenticated_root_url, :alert => exception.message
+    redirect_to authenticated_root_url, alert: :'Login to continue'
   end
 
   # Prevent CSRF attacks by raising an exception.
@@ -183,7 +183,7 @@ end
 
 `config/puma.rb`
 ```ruby
-workers Integer(ENV['WEB_CONCURRENCY'] || 4)
+workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
@@ -204,11 +204,11 @@ end
 `config/sidekiq.rb`
 ```ruby
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV['REDISCLOUD_URL'], size: 3 }
+  config.redis = { url: ENV['REDISCLOUD_URL'], size: 6 }
 end
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV['REDISCLOUD_URL'], size: 8 }
+  config.redis = { url: ENV['REDISCLOUD_URL'], size: 16 }
 end
 ```
 
