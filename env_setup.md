@@ -17,7 +17,7 @@ Control+O, Enter, and then Control+X
   - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings
 
 ##### GitHub
-Config `$ git config --global -l`
+Configure `$ git config --global -l`
 ```
 filter.lfs.required=true
 filter.lfs.clean=git-lfs clean %f
@@ -36,7 +36,7 @@ $ git checkout <SHA>
 $ git rebase master
 $ git push -f origin HEAD:<name-of-remote-branch>
 ```
-Sync your rebased branch
+sync your rebased branch
 ```
 $ git push -f
 ```
@@ -44,11 +44,11 @@ $ git push -f
 ##### Homebrew
 [http://brew.sh](http://brew.sh)
 
-Run to install latest version
+Install latest version of Homebrew
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-Configure
+configure
 ```
 $ brew install wget
 $ brew doctor
@@ -58,17 +58,17 @@ $ brew update
 ##### RVM
 [https://rvm.io/rvm/install](https://rvm.io/rvm/install)
 
-Latest version
+Install latest version of RVM
 ```
 $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 ```
-Disable documentation for all gem installs `$ echo "gem: --no-rdoc --no-ri" >> ~/.gemrc`
+disable documentation for all gem installs `$ echo "gem: --no-rdoc --no-ri" >> ~/.gemrc`
 
-Test installation
+test installation
 ```
 $ type rvm | head -n 1
 ```
-Should output `rvm is a function`
+should output `rvm is a function`
 
 Install Ruby
 ```
@@ -81,6 +81,26 @@ $ rvm rubygems current
 ```
 Install Rails
 ```
-$ gem install rails --no-ri --no-rdoc
+$ gem install rails 4.2.6 --no-ri --no-rdoc
 $ rails --version
 ```
+Removing RVM
+```
+$ rvm implode --force
+```
+remove from the following locations
+```
+$ rm -rf /usr/local/rvm
+$ sudo rm /etc/profile.d/rvm.sh
+$ sudo rm /etc/rvmrc
+$ sudo rm ~/.rvmrc
+```
+check the following files for RVM references
+```
+$ nano ~/.bashrc
+$ nano ~/.bash_profile
+$ nano ~/.profile
+$ nano ~/.zshrc
+$ nano ~/.zlogin
+```
+restart your terminal

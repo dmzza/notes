@@ -81,9 +81,8 @@ gem 'activejob', '>= 4.2.5.1'
 Sidekiq uses Redis to store all of its job and operational data
 ```
 $ brew install redis
-$ ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
-$ redis-server
 ```
+start Redis server `$ redis-server`
 ```
 gem 'redis'
 ```
