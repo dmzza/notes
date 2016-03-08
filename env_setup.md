@@ -1,4 +1,4 @@
-# terminal preferences
+##### terminal preferences
 `$ nano .bash_profile`
 ```
 export PS1=" 🙃  $ "
@@ -17,8 +17,8 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
   - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings
   - Uninstall and reinstall pg gem, after updating Postgres
 
-# git
-  - Install Github for Mac  
+##### GitHub
+Config  
     `$ git config --global -l`
     ```
     filter.lfs.required=true
@@ -29,32 +29,45 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
     user.email=litlmoz@gmail.com
     core.editor=atom --wait
     ```
-  - Install Xcode and xcode command line tools
-  - Install Xcode extensions: `$ xcode-select --install`
+Install Xcode and xcode command line tools
+Install Xcode extensions: `$ xcode-select --install`
 
-# homebrew found
-1. http://brew.sh
-2. installation: `$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-3. configuration: `$ brew install wget`
+Rebase branch
+```
+$ git checkout <SHA>
+$ git rebase master
+$ git push -f origin HEAD:<name-of-remote-branch>
+```
+Sync your rebased branch
+```
+$ git push -f
+```
 
-# ruby
+##### Homebrew
+- http://brew.sh
+- installation: `$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- configuration: `$ brew install wget`
+- `$ brew doctor`
+- `$ brew update`
+- `$ bundle install`
+
+##### Ruby
 1. found https://rvm.io/rvm/install
 2. RVM stable with Ruby: `$ \curl -sSL https://get.rvm.io | bash -s stable --ruby`
 3. Install the most recent RubyGems that RVM knows about
 `$ rvm rubygems current`
-3. Updating RVM & Ruby:
+4. Updating RVM & Ruby:
   - `$ rvm get stable --autolibs=enable`
   - `$ rvm install ruby`
   - `$ rvm list`
 5. Disables the documentation step: `$ echo "gem: --no-document" >> ~/.gemrc`
 6. If installation and configuration were successful, RVM should now load whenever you open a new shell
 Test by executing `$ type rvm | head -n 1` which should output `rvm is a function`
+7. To keep all the installed gems current
+```
+$ rvm gemset update
+```
 
-# rails
+##### Rails
   - installation: `$ gem install rails --no-ri --no-rdoc`
   - `$ rails --version`
-
-# check installation:
-  - `$ brew doctor`
-  - `$ brew update`
-  - `$ bundle install`

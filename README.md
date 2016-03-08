@@ -15,9 +15,9 @@ Create App
 ```
 $ heroku create Appname
 ```
-Clone existing app
+Associate a Git repo with an existing app
 ```
-$ heroku git:clone -a myapp
+$ heroku git:remote -a Appname
 ```
 Push local changes
 ```
@@ -47,6 +47,12 @@ Bundle edge Rails instead
 ```
 gem 'rails', '>= 4.2.5'
 ```
+Setup favicon icons
+```
+group :development do
+  gem 'rails_real_favicon'
+end
+```
 #### Testing
 Testing framework for Rails 4.x
 ```
@@ -60,6 +66,12 @@ In Rails 4, you may want to create a binstub for the rspec command so it can be 
 ```
 $ bundle binstubs rspec-core
 ```
+Add Wayne New Relic plan thru Heroku
+```
+gem 'newrelic_rpm'
+```
+[Download newrelic.yml](https://rpm.newrelic.com/accounts/1264255/applications/setup#)
+
 
 #### Mailer
 Declare job classes that can be run by queueing backends
@@ -71,6 +83,9 @@ Sidekiq uses Redis to store all of its job and operational data
 $ brew install redis
 $ ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
 $ redis-server
+```
+```
+gem 'redis'
 ```
 Asynchronous queueing system
 ```
@@ -132,10 +147,11 @@ Use Postgresql as the database for Active Record
 ```
 gem 'pg', '>= 0.15'
 ```
-Loads environment variables from .env
+Store environment variables in .env gitignored file
 ```
 gem 'dotenv-rails', '>= 2.1.0'
 ```
+
 ------------
 #### Config Files
 `app/controllers/application_controller.rb`
@@ -179,10 +195,30 @@ port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
+    # @sidekiq_pid ||= spawn("bundle exec sidekiq -C config/sidekiq.rb -c 3 -q critical -q default -q low")
   # Worker specific setup for Rails 4.1+
   # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
   ActiveRecord::Base.establish_connection
 end
+```
+
+`config/sidekiq.rb`
+```ruby
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['REDISCLOUD_URL'], size: 3 }
+end
+
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV['REDISCLOUD_URL'], size: 8 }
+end
+```
+
+`config/application.rb`
+```ruby
+GC::Profiler.enable #New Relic Ruby agent that collects information about how much time is spent in garbage collection
+# Do not swallow errors in after_commit/after_rollback callbacks.
+config.active_record.raise_in_transactional_callbacks = true
+config.active_job.queue_adapter = :sidekiq
 ```
 
 `config/environments/development.rb`
@@ -326,6 +362,7 @@ default: &default
   encoding: unicode
   pool: 5
   username: david
+  host: localhost
 
 development:
   <<: *default
@@ -342,159 +379,6 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
 ```
 
-`config/initializers/simple_form_bootstrap.rb`
-```ruby
-# Use this setup block to configure all options available in SimpleForm.
-SimpleForm.setup do |config|
-  config.error_notification_class = 'alert alert-danger'
-  config.button_class = 'btn btn-default'
-  config.boolean_label_class = nil
-
-  config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-    b.use :label, class: 'control-label'
-
-    b.use :input, class: 'form-control'
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  end
-
-  config.wrappers :vertical_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :readonly
-    b.use :label, class: 'control-label'
-
-    b.use :input
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  end
-
-  config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.optional :readonly
-
-    b.wrapper tag: 'div', class: 'checkbox' do |ba|
-      ba.use :label_input
-    end
-
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  end
-
-  config.wrappers :vertical_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'control-label'
-    b.use :input
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  end
-
-  config.wrappers :horizontal_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-    b.use :label, class: 'col-sm-2 control-label'
-
-    b.wrapper tag: 'div', class: 'col-sm-10' do |ba|
-      ba.use :input, class: 'form-control'
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-    end
-  end
-
-  config.wrappers :horizontal_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :readonly
-    b.use :label, class: 'col-sm-2 control-label'
-
-    b.wrapper tag: 'div', class: 'col-sm-10' do |ba|
-      ba.use :input
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-    end
-  end
-
-  config.wrappers :horizontal_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.optional :readonly
-
-    b.wrapper tag: 'div', class: 'col-sm-offset-2 col-sm-10' do |wr|
-      wr.wrapper tag: 'div', class: 'checkbox' do |ba|
-        ba.use :label_input
-      end
-
-      wr.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      wr.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-    end
-  end
-
-  config.wrappers :horizontal_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.optional :readonly
-
-    b.use :label, class: 'col-sm-2 control-label'
-
-    b.wrapper tag: 'div', class: 'col-sm-10' do |ba|
-      ba.use :input
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-    end
-  end
-
-  config.wrappers :inline_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-    b.use :label, class: 'sr-only'
-
-    b.use :input, class: 'form-control'
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  end
-
-  config.wrappers :multi_select, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'col-sm-2 control-label'
-    b.wrapper tag: 'div', class: 'form-inline col-sm-10' do |ba|
-      ba.use :input, class: 'form-control'
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-    end
-  end
-  # Wrappers for forms and inputs using the Bootstrap toolkit.
-  # Check the Bootstrap docs (http://getbootstrap.com)
-  # to learn about the different styles for forms and inputs,
-  # buttons and other elements.
-  config.default_wrapper = :horizontal_form
-  config.wrapper_mappings = {
-    check_boxes: :horizontal_radio_and_checkboxes,
-    radio_buttons: :horizontal_radio_and_checkboxes,
-    file: :horizontal_file_input,
-    boolean: :horizontal_boolean,
-    datetime: :multi_select,
-    date: :multi_select,
-    time: :multi_select
-  }
-end
-
-```
 
 `/.travis.yml`
 ```yml
@@ -502,9 +386,9 @@ language: ruby
 rvm:
   - '2.2.3'
 addons:
-  postgresql: '9.4'
+  postgresql: '9.3'
 services:
-  - postgresql
+  - redis-server
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -514,6 +398,9 @@ before_script:
 ```yml
 test:
   adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
   database: travis_ci_test
   username: postgres
 ```
@@ -532,8 +419,8 @@ end
 
 `/Procfile`
 ```
-web: bundle exec rails s
-web: bundle exec puma -C config/puma.rb
+web: bundle exec rails server Puma -p $PORT
+worker: bundle exec sidekiq -c 12 -q critical -q default -q low -C config/sidekiq.rb
 ```
 
 `/.gitignore`
