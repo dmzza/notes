@@ -70,21 +70,45 @@ $ type rvm | head -n 1
 ```
 should output `rvm is a function`
 
+`gem env` will list the gem paths
+
+should report the RVM-managed gem library paths
+
 Install Ruby
 ```
 $ rvm install 2.3.0
 ```
-
+First install Bundler gem inside of a project
+```
+gem install bundler
+```
 Update all gems
 ```
 $ rvm rubygems current
+$ bundle update
 ```
 Install Rails
 ```
 $ gem install rails 4.2.6 --no-ri --no-rdoc
 $ rails --version
 ```
-Removing RVM
+RVM CLI usage
+
+`rvm info` show information for current ruby
+
+`rvm list` show currently installed versions
+
+`rvm reload` reload RVM source itself (useful after changing RVM source)
+
+`rvm use` setup current shell to use a specific ruby version
+
+`rvm --default` when used with ruby selection, sets a default ruby for new shells
+
+Update RVM
+```
+$ rvm get stable
+```
+Remove RVM
 ```
 $ rvm implode --force
 ```
