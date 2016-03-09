@@ -12,6 +12,10 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
 ```
+Install Postgres gem specifying directory
+```
+gem install pg -v '0.18.4' --  --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.5/bin/pg_config
+```
 Control+O, Enter, and then Control+X
   - Two lines enable command line colors, and define colors for the ‘ls’ command
   - Finally, we alias ls to include a few flags by default. -G colorizes output, -h makes sizes human readable, and -F throws a / after a directory, * after an executable, and a @ after a symlink, making it easier to quickly identify things in directory listings
