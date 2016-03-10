@@ -1,5 +1,6 @@
-# Methods
+#### Methods
 
+```ruby
 def get_name()
   print "Enter your name: "
   return gets.chomp
@@ -30,3 +31,4 @@ if divisible_by_3(number)
 else
   puts "Your number is not cleanly divisible by 3"
 end
+```
