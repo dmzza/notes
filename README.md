@@ -131,7 +131,7 @@ gem 'mocha', '>= 1.1'
 ```
 #### Simple Form
 ```
-gem 'simple_form
+gem 'simple_form'
 ```
 Run the generator for SimpleForm Bootstrap integration:
 ```

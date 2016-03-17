@@ -4,7 +4,7 @@ rails g scaffold State name:string{14} region:string{10} acronym:string{2}
 
 rails g scaffold Certification name:string acronym:string
 
-rails g scaffold Company name:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10} business_structure:string year_established:integer number_of_employees:integer last_year_sales:decimal counties:text general_liability_insurance_amount:decimal contract_dollars_level_interest_min:decimal contract_dollars_level_interest_max:decimal nature_of_business:text is_union_contractor:boolean bonding_capacity:string type_of_construction:string
+rails g scaffold Company name:string{50} entity_number:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10} business_structure:string year_established:integer number_of_employees:integer last_year_sales:decimal counties:text general_liability_insurance_amount:decimal contract_dollars_level_interest_min:decimal contract_dollars_level_interest_max:decimal nature_of_business:text is_union_contractor:boolean bonding_capacity:string type_of_construction:string
 
 rails g scaffold User company:belongs_to first_name:string{30} last_name:string{30} title:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10} mobile_number:integer{8} office_number:integer{8} extension:string{15} fax_number:integer{8} gender:string ethnicity:string veteran_status:string
 
@@ -12,11 +12,13 @@ rails g model CertificationsCompanies company:belongs_to certification:belongs_t
 
 rails g model CompanyIndustries company:belongs_to industry:belongs_to
 
-rails g scaffold client name:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10}
+rails g scaffold Role name:string description:string
 
-rails g scaffold opportunity client:belongs_to project_name:string contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text instructions:text
+rails g scaffold Client name:string{50} address_1:string{100} address_2:string{50} city:string state:belongs_to zip:string{10}
 
-rails g scaffold bid opportunity:belongs_to is_interested:boolean wants_reminder:boolean company:belongs_to area_of_expertise:string
+rails g scaffold Opportunity client:belongs_to project_name:string project_owner:string union_contract:boolean city:string state:belongs_to contact_name:string contact_phone:integer{8} contact_fax:integer{8} contact_email:string bid_date:date trades_solicited:text project_description:text bid_instructions:text project_url:string
+
+rails g scaffold Bid opportunity:belongs_to is_interested:boolean is_unsure:boolean company:belongs_to reason_unsure:string need_assistance_1:string need_assistance_2:string able_to_complete:string decline_reasons:string contacted:datetime employee_notes:string
 
 class Certification
   has_many :company_certifications
